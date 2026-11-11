@@ -12,6 +12,12 @@ Matinee is a real-time watch party web app. One person opens a room and shares a
 
 It is built around the feeling of a cozy private screening: a warm near-black palette, film grain, serif display type, ticket-stub room codes and a curtain that opens when you take your seat.
 
+## Screenshots
+
+![Landing page](docs/landing.png)
+![Lobby](docs/lobby.png)
+![Watch room](docs/room.png)
+
 ## Features
 
 - **Authentication**: email/password and Google sign-in (Firebase Auth), with protected routes and return-to-room after login
