@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@import "@fontsource/instrument-serif";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Geist Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --color-ink-950: #0b0a09;
+  --color-ink-900: #121110;
+  --color-ink-800: #1b1917;
+  --color-ink-700: #26231f;
+  --color-ink-600: #3a352f;
+  --color-paper: #f2ebdd;
+  --color-paper-dim: #b8ae9a;
+  --color-ember: #e8553d;
+  --color-ember-soft: #f08a73;
+  --color-brass: #c9a15b;
+
+  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink-950);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body { min-height: 100dvh; }
+  ::selection { background: var(--color-ember); color: var(--color-ink-950); }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  * { scrollbar-width: thin; scrollbar-color: var(--color-ink-600) transparent; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; opacity: 0.5; }
+  :focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+}
+
+@layer components {
+  .ticket {
+    position: relative;
+    background: var(--color-paper);
+    color: var(--color-ink-950);
+    --notch: 12px;
+    -webkit-mask:
+      radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask:
+      radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+  }
+
+  .btn-ember {
+    background: var(--color-ember);
+    color: var(--color-ink-950);
+    font-weight: 600;
+    padding: 0.8rem 1.4rem;
+    transition: transform 0.2s var(--ease-curtain), background 0.2s;
+  }
+  .btn-ember:hover:not(:disabled) { background: var(--color-ember-soft); transform: translateY(-1px); }
+  .btn-ember:active:not(:disabled) { transform: translateY(0); }
+
+  .btn-ghost {
+    border: 1px solid var(--color-ink-600);
+    color: var(--color-paper);
+    padding: 0.8rem 1.4rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover:not(:disabled) { border-color: var(--color-paper-dim); background: var(--color-ink-800); }
+
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink-600);
+    padding: 0.7rem 0;
+    color: var(--color-paper);
+    transition: border-color 0.2s;
+  }
+  .field::placeholder { color: var(--color-ink-600); }
+  .field:focus { outline: none; border-color: var(--color-ember); }
+
+  .label {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-paper-dim);
+  }
+
+  .bulb {
+    width: 6px; height: 6px; border-radius: 9999px;
+    background: var(--color-brass);
+    animation: bulb 2.1s ease-in-out infinite;
+  }
+  .curtain-fabric {
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.28) 0 2px, transparent 2px 56px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 18px, transparent 18px 56px),
+      #6b1d12;
+  }
+}
+
+@keyframes bulb {
+  0%, 100% { opacity: 0.25; box-shadow: none; }
+  50% { opacity: 1; box-shadow: 0 0 10px 1px rgba(201, 161, 91, 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulb { animation: none; opacity: 0.8; }
+}
